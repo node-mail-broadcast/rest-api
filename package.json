@@ -7,7 +7,8 @@
     "test": "mocha --exit -r ts-node/register test/*.ts",
     "test:ci": "nyc --reporter cobertura --reporter=html --reporter=text mocha -r ts-node/register --require source-map-support/register --recursive test/*.ts --reporter mocha-junit-reporter --reporter=spec",
     "dev": "ts-node-dev --project ./tsconfig.json --respawn --no-deps --rs --cls ./src",
-    "build": "tsc"
+    "build": "tsc",
+    "healthcheck": "node dist/docker-healthcheck.js"
   },
   "repository": {
     "type": "git",

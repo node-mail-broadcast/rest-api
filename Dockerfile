@@ -22,6 +22,8 @@ MAINTAINER Nico W. <info@ni-wa.de>
 
 EXPOSE 8080
 
+HEALTHCHECK --start-period=25s CMD npm run healthcheck
+
 # copy files from build stage
 COPY --from=builder /build/dist/ dist/
 COPY --from=builder /build/package*.json ./
