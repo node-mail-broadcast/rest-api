@@ -9,5 +9,7 @@ export abstract class AbstractRoute implements Route {
     this.initializeRoutes();
   }
 
+  abstract getPath(): string;
+
   abstract initializeRoutes(): void;
 }
