@@ -1,8 +1,7 @@
 import { ValidationErrorItem } from 'joi';
-import { Error } from '../interfaces/HTTPResponse';
-import BadRequest from './BadRequest';
+import { HttpError, HttpExceptions } from '@kopf02/express-utils';
 
-class InputException extends BadRequest {
+class InputException extends HttpExceptions.BadRequest {
   private readonly errorDetails: ValidationErrorItem[];
 
   constructor(errorDetails: ValidationErrorItem[]) {
@@ -10,7 +9,7 @@ class InputException extends BadRequest {
     this.errorDetails = errorDetails;
   }
 
-  public getBody(): Error {
+  public getBody(): HttpError {
     return { ...super.getBody(), errorDetails: this.errorDetails };
   }
 }

@@ -2,7 +2,7 @@ import * as convict from 'convict';
 import * as path from 'path';
 import * as fs from 'fs';
 // Define a schema
-let config = convict({
+const config = convict({
   loglevel: {
     doc: 'The application loglevel.',
     format: String,

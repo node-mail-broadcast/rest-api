@@ -1,9 +1,7 @@
 import Settings from '../lib/settings';
 import { NextFunction, Request, Response } from 'express';
-import { HTTPResponse } from '../interfaces/HTTPResponse';
-import HttpException from '../exceptions/HttpException';
-import { logger } from '../utils/logger';
 import config from '../config';
+import { HttpExceptions, HTTPResponse, logger } from '@kopf02/express-utils';
 
 /**
  * This class is all about the maintenance mode
@@ -155,7 +153,9 @@ export default class MaintenanceMiddleware {
 
     if (this.isEnabled) {
       logger.debug('Request during maintenance!');
-      return next(new HttpException(401, 'Maintenance mode enabled'));
+      return next(
+        new HttpExceptions.HttpException(401, 'Maintenance mode enabled')
+      );
     }
 
     next();
@@ -169,7 +169,7 @@ export default class MaintenanceMiddleware {
    * @since 26.06.2021 12:15
    */
   private checkUpdate() {
-    let currentDate = new Date();
+    const currentDate = new Date();
 
     if (
       this.lastCheck?.getMilliseconds() + 1000 * 60 * 5 <

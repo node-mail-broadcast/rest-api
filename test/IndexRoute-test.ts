@@ -1,18 +1,18 @@
-import Application from '../src/application';
 import IndexRoute from '../src/routes/index.route';
 import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 import config from '../src/config';
+import { App } from '@kopf02/express-utils';
 
 describe('IndexRoute', () => {
-  let app: Application;
+  let app: App;
 
   before(() => {
     process.env.NODE_ENV = 'test';
     config.set('env', 'test');
     //register plugin
     chai.use(chaiHttp);
-    app = new Application(new IndexRoute());
+    app = new App(new IndexRoute());
   });
   it('should get empty data on / request', () => {
     return chai

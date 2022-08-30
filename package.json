@@ -22,6 +22,7 @@
   "author": "Nico W. <info@ni-wa.de> (https://trickfilm400.de/)",
   "license": "MIT",
   "dependencies": {
+    "@kopf02/express-utils": "^1.1.1-main-58f5a1e830d23736e2f7b12991b82f1717d43c61.0",
     "convict": "^6.2.3",
     "cors": "^2.8.5",
     "express": "^4.18.1",

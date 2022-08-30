@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import IndexService from '../services/IndexService';
-import { HTTPResponse } from '../interfaces/HTTPResponse';
 import { IHealthCheck, IVersion } from '../interfaces/IndexService.interface';
+import { HTTPResponse } from '@kopf02/express-utils';
 
 class IndexController {
   public IndexService = new IndexService();
