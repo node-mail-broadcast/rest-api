@@ -1,17 +1,20 @@
-import { AbstractRoute } from '../utils/AbstractRoute';
+import { AbstractRoute } from '@kopf02/express-utils';
+import MailTemplatesController from '../controllers/mailTemplates.controller';
 
 class MailTemplatesRoute extends AbstractRoute {
-  public initializeRoutes(): void {
-    this.router.get(`${this.getPath()}`);
-    this.router.put(`${this.getPath()}`);
-    this.router.get(`${this.getPath()}:id`);
-    this.router.patch(`${this.getPath()}:id`);
-    this.router.post(`${this.getPath()}:id`);
-    this.router.delete(`${this.getPath()}:id`);
+  private mailTemplateController: MailTemplatesController;
+  initializeRoutes(): void {
+    this.mailTemplateController = new MailTemplatesController();
+    this.router.get(`/`, this.mailTemplateController.get);
+    this.router.put(`/`, this.mailTemplateController.create);
+    this.router.get(`/:id`, this.mailTemplateController.get);
+    this.router.patch(`/:id`, this.mailTemplateController.update);
+    this.router.post(`/:id`, this.mailTemplateController.create);
+    this.router.delete(`/:id`, this.mailTemplateController.delete);
   }
 
-  public getPath(): string {
-    return '/templates/';
+  public get path(): string {
+    return '/templates';
   }
 }
 
