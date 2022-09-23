@@ -3,7 +3,7 @@ import { DataSource } from 'typeorm';
 import config from '../config';
 
 export const AppDataSource = new DataSource({
-  type: 'mariadb',
+  type: 'mongodb',
   host: config.get('db.host'),
   port: config.get('db.port'),
   username: config.get('db.user'),
