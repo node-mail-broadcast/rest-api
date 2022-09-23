@@ -59,8 +59,9 @@ export default class MaintenanceMiddleware {
    * @since 26.06.2021
    * @constructor
    */
-  constructor() {
+  constructor(defaultState = false) {
     MaintenanceMiddleware._instance = this;
+    this._isEnabled = defaultState;
     this.getEnabledStatus()
       .then((value) => {
         this._isEnabled = value;

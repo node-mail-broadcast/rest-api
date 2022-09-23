@@ -12,10 +12,15 @@ let dataSource: Mongoose;
 
 if (process.env.NODE_ENV !== 'test') {
   logger.info('Trying to connect to database...');
-  AppDataSource.initialize().then((_r) => {
-    app.afterMiddlewares(new MaintenanceMiddleware().ExpressMiddleWare);
+  mongoose.connect(mongoDBURL, mongoOptions).then((res) => {
+    //AppDataSource.initialize().then((_r) => {
+    app.afterMiddlewares(new MaintenanceMiddleware(false).ExpressMiddleWare);
+    app.init();
     app.listen();
+    dataSource = res;
+    console.log('app.listen();');
   });
+  //});
 } else {
   //app.afterMiddlewares(new MaintenanceMiddleware().ExpressMiddleWare);
   app.init();
