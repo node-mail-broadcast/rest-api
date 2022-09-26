@@ -1,4 +1,4 @@
-import { templates } from '../entity/Templates';
+import { ITemplate, templates } from '../entity/Templates';
 
 class MailTemplatesService {
   public async deleteTemplate(id: string) {
@@ -6,7 +6,9 @@ class MailTemplatesService {
     return res;
   }
 
-  public async getTemplates(id?: string) {
+  public async getTemplates(
+    id?: string
+  ): Promise<ITemplate | ITemplate[] | null> {
     if (id) {
       return templates.findOne({ uuid: id });
     } else {
