@@ -13,6 +13,7 @@ describe('IndexRoute', () => {
     //register plugin
     chai.use(chaiHttp);
     app = new App(new IndexRoute());
+    app.init();
   });
   it('should get empty data on / request', () => {
     return chai
