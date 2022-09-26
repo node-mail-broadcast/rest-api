@@ -16,9 +16,10 @@ if (process.env.NODE_ENV !== 'test') {
     //AppDataSource.initialize().then((_r) => {
     app.afterMiddlewares(new MaintenanceMiddleware(false).ExpressMiddleWare);
     app.init();
+    app.getServer().set('etag', false);
     app.listen();
     dataSource = res;
-    console.log('app.listen();');
+    //console.log('app.listen();');
   });
   //});
 } else {
