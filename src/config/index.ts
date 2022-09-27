@@ -62,9 +62,11 @@ const config = convict({
   },
 });
 
-//Load Config json File based on default or Environment Variable
-if (fs.existsSync(config.get('config'))) {
-  config.loadFile(config.get('config'));
+export function loadConfigFile() {
+  //Load Config json File based on default or Environment Variable
+  if (fs.existsSync(config.get('config'))) {
+    config.loadFile(config.get('config'));
+  }
 }
 
 //Validate Config Parameter

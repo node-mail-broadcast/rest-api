@@ -9,8 +9,11 @@ describe('Convict Config', () => {
       path.join(__dirname, '..', 'config.json'),
       JSON.stringify({ port: 1234, db: { port: 27017 } })
     );
-    config = (await import('../src/config')).default;
+    const { default: _config, loadConfigFile } = await import('../src/config');
+    //config = .default;
+    config = _config;
     config.set('loglevel', 'silly');
+    loadConfigFile();
     console.log(config, __dirname);
   });
 
