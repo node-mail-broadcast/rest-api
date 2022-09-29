@@ -22,12 +22,12 @@
   "author": "Nico W. <info@ni-wa.de> (https://trickfilm400.de/)",
   "license": "MIT",
   "dependencies": {
-    "@kopf02/express-utils": "^1.1.1-main-58f5a1e830d23736e2f7b12991b82f1717d43c61.0",
+    "@kopf02/express-utils": "^1.1.2-main-801dc2e24c8e3f32649e937b95777a9178486928.0",
     "convict": "^6.2.3",
     "cors": "^2.8.5",
     "express": "^4.18.1",
-    "joi": "^17.6.0",
-    "mongoose": "^6.6.1",
+    "joi": "^17.6.1",
+    "mongoose": "^6.6.2",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.3.10",
     "uuid": "^9.0.0",
@@ -37,14 +37,14 @@
     "@types/convict": "^6.1.1",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.14",
-    "@types/mocha": "^9.1.1",
-    "@types/node": "^18.7.18",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "^18.7.23",
     "@types/uuid": "^8.3.4",
-    "@typescript-eslint/eslint-plugin": "^5.38.0",
-    "@typescript-eslint/parser": "^5.38.0",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
-    "eslint": "^8.23.1",
+    "eslint": "^8.24.0",
     "eslint-plugin-prettier": "^4.2.1",
     "mocha": "^10.0.0",
     "mocha-junit-reporter": "^2.0.2",
@@ -53,6 +53,6 @@
     "source-map-support": "^0.5.21",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^4.8.3"
+    "typescript": "^4.8.4"
   }
 }
