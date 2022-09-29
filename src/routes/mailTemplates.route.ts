@@ -6,10 +6,10 @@ class MailTemplatesRoute extends AbstractRoute {
   initializeRoutes(): void {
     this.mailTemplateController = new MailTemplatesController();
     this.router.get(`/`, this.mailTemplateController.get);
-    this.router.put(`/`, this.mailTemplateController.create);
+    //this.router.put(`/`, this.mailTemplateController.update);
     this.router.get(`/:id`, this.mailTemplateController.get);
     this.router.patch(`/:id`, this.mailTemplateController.update);
-    this.router.post(`/:id`, this.mailTemplateController.create);
+    this.router.post(`/`, this.mailTemplateController.create);
     this.router.delete(`/:id`, this.mailTemplateController.delete);
   }
 

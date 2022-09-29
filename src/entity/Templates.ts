@@ -1,6 +1,5 @@
 import { Schema } from 'mongoose';
 import * as mongoose from 'mongoose';
-import { v4 as uuidv4 } from 'uuid';
 
 export interface ITemplate extends Document {
   name: string;
@@ -35,7 +34,8 @@ const TemplateSchema = new Schema({
   },
   uuid: {
     type: Schema.Types.String,
-    default: uuidv4(),
+    default: true,
+    unique: true,
   },
   mail: {
     variables: {

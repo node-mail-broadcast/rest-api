@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import MailTemplatesService from '../services/mailTemplates.service';
-import { HTTPResponse } from '@kopf02/express-utils';
+import { HttpExceptions, HTTPResponse } from '@kopf02/express-utils';
 import { ITemplate } from '../entity/Templates';
 import InputException from '../exceptions/InputException';
 import { templateSchema } from '../entity/joi/templates.joi';
@@ -14,7 +14,7 @@ class MailTemplatesController {
       .then((result) => {
         _res.json({ data: result });
       })
-      .catch(_next);
+      .catch((x) => _next(new InputException(x)));
   };
   public create = (_req: Request, _res: Response, _next: NextFunction) => {
     const validationResult = templateSchema
@@ -23,6 +23,12 @@ class MailTemplatesController {
     if (validationResult.error) {
       return _next(new InputException(validationResult.error.details));
     }
+    this.mailTemplatesService
+      .saveTemplate(validationResult.value)
+      .then((res) => {
+        _res.json({ data: res });
+      })
+      .catch((x) => _next(new InputException(x)));
   };
   public update = (_req: Request, _res: Response, _next: NextFunction) => {
     const validationResult = templateSchema
@@ -31,6 +37,14 @@ class MailTemplatesController {
     if (validationResult.error) {
       return _next(new InputException(validationResult.error.details));
     }
+    this.mailTemplatesService
+      .updateTemplate(_req.params.id, validationResult.value)
+      .then((res) => {
+        if (res === null)
+          return _next(new HttpExceptions.NotFound('Element not found'));
+        _res.json({ data: res });
+      })
+      .catch((x) => _next(new InputException(x)));
   };
   public get = (
     _req: Request,
@@ -47,7 +61,7 @@ class MailTemplatesController {
       .then((res) => {
         _res.json({ data: res });
       })
-      .catch(_next);
+      .catch((x) => _next(new InputException(x)));
   };
   // public delete = (_req: Request, _res: Response, _next: NextFunction) => {};
 }
