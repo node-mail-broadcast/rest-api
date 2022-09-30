@@ -14,7 +14,7 @@ describe('Convict Config', () => {
     config = _config;
     config.set('loglevel', 'silly');
     loadConfigFile();
-    console.log(config, __dirname);
+    //console.log(config, __dirname);
   });
 
   it('should fetch correct defaults', () => {
