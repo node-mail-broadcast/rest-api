@@ -4,8 +4,7 @@ import { unixTimestamp } from '../lib/utils';
 
 class MailTemplatesService {
   public async deleteTemplate(id: string) {
-    const res = await templates.deleteOne({ uuid: id });
-    return res;
+    return await templates.deleteOne({ uuid: id });
   }
 
   public async getTemplates(
@@ -27,10 +26,14 @@ class MailTemplatesService {
     console.log(newObj);
     newObj.lastEdited = unixTimestamp();
     console.log(newObj, id);
-    return templates.findOneAndUpdate({ uuid: id }, newObj, {
-      new: true,
-      upsert: false,
-    });
+    return templates.findOneAndUpdate(
+      { uuid: id },
+      { $set: newObj, $inc: { __v: 1 } },
+      {
+        new: true,
+        upsert: false,
+      }
+    );
   }
 }
 
