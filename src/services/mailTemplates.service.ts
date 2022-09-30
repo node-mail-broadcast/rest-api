@@ -1,5 +1,6 @@
 import { ITemplate, templates } from '../entity/Templates';
 import { v4 } from 'uuid';
+import { unixTimestamp } from '../lib/utils';
 
 class MailTemplatesService {
   public async deleteTemplate(id: string) {
@@ -19,11 +20,12 @@ class MailTemplatesService {
 
   public async saveTemplate(obj: ITemplate) {
     obj.uuid = v4();
+    obj.lastEdited = unixTimestamp();
     return templates.create(obj);
   }
   public async updateTemplate(id: string, newObj: ITemplate) {
     console.log(newObj);
-    newObj.lastEdited = Math.floor(Date.now() / 1000);
+    newObj.lastEdited = unixTimestamp();
     console.log(newObj, id);
     return templates.findOneAndUpdate({ uuid: id }, newObj, {
       new: true,
