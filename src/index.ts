@@ -1,6 +1,16 @@
+import {
+  App,
+  Config,
+  dbConfig,
+  DbConfigInterface,
+  logger,
+} from '@kopf02/express-utils';
+//Convict config
+export type CustomConvictConfig = DbConfigInterface;
+new Config(dbConfig('mongodb', 'rest-api'));
+
 import MaintenanceMiddleware from './middlewares/maintenance.middleware';
 import indexRoute from './routes/index.route';
-import { App, logger } from '@kopf02/express-utils';
 import * as mongoose from 'mongoose';
 import { mongoDBURL, mongoOptions } from './database/mongodb';
 import { Mongoose } from 'mongoose';
