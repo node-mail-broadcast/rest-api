@@ -1,14 +1,15 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import config from '../config';
+import { CustomConvictConfig } from '../index';
+import { Config } from '@kopf02/express-utils';
 
 export const AppDataSource = new DataSource({
   type: 'mongodb',
-  host: config.get('db.host'),
-  port: config.get('db.port'),
-  username: config.get('db.user'),
-  password: config.get('db.password'),
-  database: config.get('db.database'),
+  host: Config.getConfig<CustomConvictConfig>().get('db.host'),
+  port: Config.getConfig<CustomConvictConfig>().get('db.port'),
+  username: Config.getConfig<CustomConvictConfig>().get('db.user'),
+  password: Config.getConfig<CustomConvictConfig>().get('db.password'),
+  database: Config.getConfig<CustomConvictConfig>().get('db.database'),
   synchronize: true,
   logging: false,
   entities: [__dirname + '/../entity/*.ts'],

@@ -1,15 +1,21 @@
 import 'reflect-metadata';
 import { ConnectOptions } from 'mongoose';
-import config from '../config';
+import { Config } from '@kopf02/express-utils';
+import { CustomConvictConfig } from '../index';
 
 const authstring =
-  config.get('db.user') !== ''
-    ? config.get('db.user') + ':' + config.get('db.password') + '@'
+  Config.getConfig<CustomConvictConfig>().get('db.user') !== ''
+    ? Config.getConfig<CustomConvictConfig>().get('db.user') +
+      ':' +
+      Config.getConfig<CustomConvictConfig>().get('db.password') +
+      '@'
     : '';
 
-const mongoDBURL = `mongodb://${authstring}${config.get(
+const mongoDBURL = `mongodb://${authstring}${Config.getConfig<CustomConvictConfig>().get(
   'db.host'
-)}:${config.get('db.port')}/${config.get('db.database')}`;
+)}:${Config.getConfig<CustomConvictConfig>().get(
+  'db.port'
+)}/${Config.getConfig<CustomConvictConfig>().get('db.database')}`;
 
 const mongoOptions: ConnectOptions = {
   authSource: 'admin',

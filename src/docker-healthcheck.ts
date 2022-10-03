@@ -1,6 +1,7 @@
 import { RequestOptions } from 'http';
-import config from './config';
 import * as http from 'http';
+import { Config } from '@kopf02/express-utils';
+import { CustomConvictConfig } from './index';
 
 interface HTTP_Response {
   data: {
@@ -30,7 +31,7 @@ class HealthCheck {
     console.log('Starting CheckUp...');
     this.makeHTTPRequest({
       host: 'localhost',
-      port: config.get('port'),
+      port: Config.getConfig<CustomConvictConfig>().get('port'),
       path: '/health',
     })
       .then((res) => {
