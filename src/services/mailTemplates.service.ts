@@ -1,6 +1,6 @@
 import { ITemplate, templates } from '../entity/Templates';
 import { v4 } from 'uuid';
-import { unixTimestamp } from '../lib/utils';
+import { getUnixTimestamp } from '@kopf02/express-utils';
 
 class MailTemplatesService {
   public async deleteTemplate(id: string) {
@@ -19,12 +19,12 @@ class MailTemplatesService {
 
   public async saveTemplate(obj: ITemplate) {
     obj.uuid = v4();
-    obj.lastEdited = unixTimestamp();
+    obj.lastEdited = getUnixTimestamp();
     return templates.create(obj);
   }
   public async updateTemplate(id: string, newObj: ITemplate) {
     console.log(newObj);
-    newObj.lastEdited = unixTimestamp();
+    newObj.lastEdited = getUnixTimestamp();
     console.log(newObj, id);
     return templates.findOneAndUpdate(
       { uuid: id },
