@@ -8,7 +8,7 @@
     "test:ci": "nyc --reporter cobertura --reporter=html --reporter=text mocha -r ts-node/register --require source-map-support/register --recursive test/*.ts --reporter mocha-junit-reporter --reporter=spec",
     "dev": "ts-node-dev --project ./tsconfig.json --respawn --no-deps --rs --cls ./src",
     "build": "tsc",
-    "healthcheck": "node dist/docker-healthcheck.js"
+    "healthcheck": "npx docker-healthcheck"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
   "author": "Nico W. <info@ni-wa.de> (https://trickfilm400.de/)",
   "license": "MIT",
   "dependencies": {
-    "@kopf02/express-utils": "^1.2.1-main-d1de7b6c8857baad4b9e30e35e559eedbed57522.0",
+    "@kopf02/express-utils": "^1.2.2-main-2dc6e136d5be142468735492d85d92adde18cb7e.0",
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "joi": "^17.6.1",
