@@ -1,28 +1,36 @@
 import { IMailServer, mailServerModel } from '../entity/mailServer';
-import { unixTimestamp } from '../lib/utils';
 import { v4 } from 'uuid';
+import {
+  AbstractDefaultService,
+  getUnixTimestamp,
+} from '@kopf02/express-utils';
 
-class MailServerService {
-  public async getServer(id?: string) {
+class MailServerService extends AbstractDefaultService<IMailServer, string> {
+  // @ts-ignore
+  async create(
+    obj: IMailServer,
+    id: string | undefined
+  ): Promise<IMailServer | null /*todo fix*/> {
     if (id) {
-      return mailServerModel.findOne({ uuid: id });
-    } else return mailServerModel.find();
+      obj.lastEdited = getUnixTimestamp(); //todo https://masteringjs.io/tutorials/mongoose/timestamps
+      return mailServerModel.findOneAndUpdate(
+        { uuid: id },
+        { $set: obj, $inc: { __v: 1 } },
+        { new: true }
+      );
+    } else {
+      obj.uuid = v4();
+      obj.lastEdited = getUnixTimestamp(); //todo https://masteringjs.io/tutorials/mongoose/timestamps
+      return mailServerModel.create(obj);
+    }
   }
-  public async deleteServer(id: string) {
-    return mailServerModel.deleteOne({ uuid: id });
+
+  async get(id: string): Promise<IMailServer | null> {
+    return mailServerModel.findOne({ uuid: id });
   }
-  public async updateServer(id: string, data: IMailServer) {
-    data.lastEdited = unixTimestamp();
-    return mailServerModel.updateOne(
-      { uuid: id },
-      { $set: data, $inc: { __v: 1 } },
-      { new: true }
-    );
-  }
-  public async createServer(data: IMailServer) {
-    data.uuid = v4();
-    data.lastEdited = unixTimestamp();
-    return mailServerModel.create(data);
+
+  async list(): Promise<IMailServer[]> {
+    return mailServerModel.find();
   }
 }
 export default MailServerService;

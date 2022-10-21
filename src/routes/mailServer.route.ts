@@ -1,16 +1,20 @@
 import { AbstractRoute } from '@kopf02/express-utils';
 import MailServerController from '../controllers/mailServer.controller';
+import { mailServerSchema } from '../entity/joi/mailServers.joi';
+import MailServerService from '../services/mailServer.service';
+import { IMailServer } from '../entity/mailServer';
 
 class MailServerRoute extends AbstractRoute {
   readonly path: string = '/server/';
 
   initializeRoutes(): void {
-    const controller = new MailServerController();
-    this.router.get('/', controller.get);
-    this.router.get('/:id', controller.get);
-    this.router.post('/', controller.post);
-    this.router.patch('/:id', controller.patch);
-    this.router.delete('/:id', controller.delete);
+    const controller = new MailServerController<IMailServer, string>({
+      joi: mailServerSchema,
+      // @ts-ignore
+      service: new MailServerService(),
+      router: this.router, //if router is given, auto add routes to router
+    });
+    this.router.get('/check/:id', controller.check);
   }
 }
 

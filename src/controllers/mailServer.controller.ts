@@ -1,51 +1,24 @@
 import { NextFunction, Request, Response } from 'express';
-import MailServerService from '../services/mailServer.service';
-import { HTTPResponse } from '@kopf02/express-utils';
-import { mailServerSchema } from '../entity/joi/mailServers.joi';
-import InputException from '../exceptions/InputException';
+import { AbstractDefaultController, HTTPResponse } from '@kopf02/express-utils';
 
-class MailServerController {
-  private mailService = new MailServerService();
-  public get = (
-    _req: Request,
-    _res: Response<HTTPResponse<any>>,
-    _next: NextFunction
+class MailServerController<T, I> extends AbstractDefaultController<T, I> {
+  parseId(id: string): I {
+    // @ts-ignore
+    //return parseInt(id);
+    return id;
+  }
+  public get = async (
+    req: Request,
+    _res: Response<HTTPResponse<T | T[] | null>>,
+    next: NextFunction
   ) => {
-    this.mailService
-      .getServer(_req.params.id)
-      .then((res) => _res.json({ data: res }));
+    try {
+      this._missingID(req);
+    } catch (e) {
+      next(e);
+    }
   };
-  public delete = (
-    _req: Request,
-    _res: Response<HTTPResponse<any>>,
-    _next: NextFunction
-  ) => {
-    this.mailService
-      .deleteServer(_req.params.id)
-      .then((res) => _res.json({ data: res }));
-  };
-  public post = (_req: Request, _res: Response, _next: NextFunction) => {
-    const validationResult = mailServerSchema
-      .tailor('create')
-      .validate(_req.body);
-    if (validationResult.error)
-      return _next(new InputException(validationResult.error.details));
-    this.mailService
-      .createServer(validationResult.value)
-      .then((res) => _res.json({ data: res }))
-      .catch((err) => _next(new InputException(err)));
-  };
-  public patch = (_req: Request, _res: Response, _next: NextFunction) => {
-    const validationResult = mailServerSchema
-      .tailor('update')
-      .validate(_req.body);
-    if (validationResult.error)
-      return _next(new InputException(validationResult.error.details));
-    this.mailService
-      .updateServer(validationResult.value)
-      .then((res) => _res.json({ data: res }))
-      .catch((err) => _next(new InputException(err)));
-  };
+  public check() {}
 }
 
 export default MailServerController;
