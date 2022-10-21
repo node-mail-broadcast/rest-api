@@ -1,16 +1,17 @@
 import { AbstractRoute } from '@kopf02/express-utils';
 import MailTemplatesController from '../controllers/mailTemplates.controller';
+import { templateSchema } from '../entity/joi/templates.joi';
+import MailTemplatesService from '../services/mailTemplates.service';
 
 class MailTemplatesRoute extends AbstractRoute {
   private mailTemplateController: MailTemplatesController;
   initializeRoutes(): void {
-    this.mailTemplateController = new MailTemplatesController();
-    this.router.get(`/`, this.mailTemplateController.get);
-    //this.router.put(`/`, this.mailTemplateController.update);
-    this.router.get(`/:id`, this.mailTemplateController.get);
-    this.router.patch(`/:id`, this.mailTemplateController.update);
-    this.router.post(`/`, this.mailTemplateController.create);
-    this.router.delete(`/:id`, this.mailTemplateController.delete);
+    this.mailTemplateController = new MailTemplatesController({
+      joi: templateSchema,
+      router: this.router,
+      service: new MailTemplatesService(),
+    });
+    this.mailTemplateController.initializeRoutes();
   }
 
   public get path(): string {

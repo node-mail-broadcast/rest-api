@@ -14,6 +14,7 @@ class MailServerRoute extends AbstractRoute {
       service: new MailServerService(),
       router: this.router, //if router is given, auto add routes to router
     });
+    controller.initializeRoutes();
     this.router.get('/check/:id', controller.check);
   }
 }
