@@ -10,7 +10,6 @@ class MailServerRoute extends AbstractRoute {
   initializeRoutes(): void {
     const controller = new MailServerController<IMailServer, string>({
       joi: mailServerSchema,
-      // @ts-ignore
       service: new MailServerService(),
       router: this.router, //if router is given, auto add routes to router
     });

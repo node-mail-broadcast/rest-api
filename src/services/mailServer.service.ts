@@ -6,23 +6,26 @@ import {
 } from '@kopf02/express-utils';
 
 class MailServerService extends AbstractDefaultService<IMailServer, string> {
-  // @ts-ignore
+  async update(
+    id: string | undefined,
+    obj: IMailServer
+  ): Promise<IMailServer | null> {
+    obj.lastEdited = getUnixTimestamp(); //todo https://masteringjs.io/tutorials/mongoose/timestamps
+    return mailServerModel.findOneAndUpdate(
+      { uuid: id },
+      { $set: obj, $inc: { __v: 1 } },
+      { new: true }
+    );
+  }
+
   async create(
     obj: IMailServer,
-    id: string | undefined
-  ): Promise<IMailServer | null /*todo fix*/> {
-    if (id) {
-      obj.lastEdited = getUnixTimestamp(); //todo https://masteringjs.io/tutorials/mongoose/timestamps
-      return mailServerModel.findOneAndUpdate(
-        { uuid: id },
-        { $set: obj, $inc: { __v: 1 } },
-        { new: true }
-      );
-    } else {
-      obj.uuid = v4();
-      obj.lastEdited = getUnixTimestamp(); //todo https://masteringjs.io/tutorials/mongoose/timestamps
-      return mailServerModel.create(obj);
-    }
+    _id: string | undefined
+  ): Promise<IMailServer> {
+    if (_id) obj.uuid = _id;
+    else obj.uuid = v4();
+    obj.lastEdited = getUnixTimestamp(); //todo https://masteringjs.io/tutorials/mongoose/timestamps
+    return mailServerModel.create(obj);
   }
 
   async get(id: string): Promise<IMailServer | null> {
@@ -31,6 +34,11 @@ class MailServerService extends AbstractDefaultService<IMailServer, string> {
 
   async list(): Promise<IMailServer[]> {
     return mailServerModel.find();
+  }
+
+  async delete(id: string): Promise<number> {
+    const res = await mailServerModel.deleteOne({ uuid: id });
+    return res.deletedCount;
   }
 }
 export default MailServerService;
