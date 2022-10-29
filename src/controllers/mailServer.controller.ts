@@ -1,10 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { AbstractDefaultController, HTTPResponse } from '@kopf02/express-utils';
 
-class MailServerController<T, I> extends AbstractDefaultController<T, I> {
-  parseId(id: string): I {
-    // @ts-ignore
-    //return parseInt(id);
+class MailServerController<T> extends AbstractDefaultController<T, string> {
+  parseId(id: string): string {
     return id;
   }
   public get = async (

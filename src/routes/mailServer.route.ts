@@ -8,7 +8,7 @@ class MailServerRoute extends AbstractRoute {
   readonly path: string = '/server/';
 
   initializeRoutes(): void {
-    const controller = new MailServerController<IMailServer, string>({
+    const controller = new MailServerController<IMailServer>({
       joi: mailServerSchema,
       service: new MailServerService(),
       router: this.router, //if router is given, auto add routes to router
