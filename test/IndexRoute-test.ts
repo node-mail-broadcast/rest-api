@@ -1,15 +1,16 @@
 import IndexRoute from '../src/routes/index.route';
 import * as chai from 'chai';
 import chaiHttp = require('chai-http');
-import config from '../src/config';
-import { App } from '@kopf02/express-utils';
+import { App, Config } from '@kopf02/express-utils';
+import { CustomConvictConfig } from '../src';
 
 describe('IndexRoute', () => {
   let app: App;
 
   before(() => {
     process.env.NODE_ENV = 'test';
-    config.set('env', 'test');
+    new Config();
+    Config.getConfig<CustomConvictConfig>().set('env', 'test');
     //register plugin
     chai.use(chaiHttp);
     app = new App(new IndexRoute());
