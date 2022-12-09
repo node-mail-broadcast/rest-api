@@ -1,5 +1,6 @@
 import { AbstractDefaultController } from '@kopf02/express-utils';
 import { ITemplate } from '../entity/Templates';
+import MailTemplatesService from '../services/mailTemplates.service';
 
 /**
  * @author Nico Wagner
@@ -7,7 +8,8 @@ import { ITemplate } from '../entity/Templates';
  */
 class MailTemplatesController extends AbstractDefaultController<
   ITemplate,
-  string
+  string,
+  MailTemplatesService
 > {
   parseId(id: string): string {
     return id;
