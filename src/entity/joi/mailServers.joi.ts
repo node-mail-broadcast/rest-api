@@ -1,6 +1,7 @@
 import * as Joi from 'joi';
+import { IMailServer } from '../mailServer';
 
-export const mailServerSchema = Joi.object({
+export const mailServerSchema = Joi.object<IMailServer>({
   _id: Joi.string().alter({
     create: (schema) => schema.forbidden(),
     update: (schema) => schema.forbidden(),

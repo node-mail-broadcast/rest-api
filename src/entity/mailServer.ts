@@ -2,6 +2,8 @@ import { Schema } from 'mongoose';
 import * as mongoose from 'mongoose';
 
 export interface IMailServer extends Document {
+  //mongoose _id string
+  readonly _id?: string;
   host: string;
   port: number;
   emailFrom: string;

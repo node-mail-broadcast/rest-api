@@ -1,6 +1,7 @@
 import * as Joi from 'joi';
+import { ITemplate } from '../Templates';
 
-export const templateSchema = Joi.object({
+export const templateSchema = Joi.object<ITemplate>({
   _id: Joi.string().alter({
     create: (schema) => schema.forbidden(),
     update: (schema) => schema.forbidden(),

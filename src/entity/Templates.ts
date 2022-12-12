@@ -2,6 +2,8 @@ import { Schema } from 'mongoose';
 import * as mongoose from 'mongoose';
 
 export interface ITemplate extends Document {
+  //mongoose string
+  readonly _id?: string;
   name: string;
   enabled: boolean;
   lastEdited: number;
