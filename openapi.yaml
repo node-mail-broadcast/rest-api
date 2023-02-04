@@ -1,0 +1,309 @@
+openapi: 3.1.0
+x-stoplight:
+  id: 3ykmv88z93bup
+info:
+  title: API
+  version: '1.0'
+  description: todo implement liquid js email template language
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /version:
+    get:
+      summary: Backend Version
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    required:
+                      - version
+                    properties:
+                      version:
+                        type: string
+                required:
+                  - data
+      operationId: get-version
+      description: Get the Backend-Service program-version
+  /health:
+    get:
+      summary: Healthcheck
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      healthy:
+                        type: boolean
+                        default: true
+                      date:
+                        type: number
+                        description: Timestamp
+      operationId: get-health
+      x-internal: true
+      description: 'Healthcheck, primarly for the dockerfile and docker container'
+  /templates:
+    get:
+      summary: HTML Email Templates endpoint
+      tags:
+        - email-templates
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Template'
+      operationId: get-templates
+      description: Get all templates
+    post:
+      summary: Create new Email Template
+      operationId: post-templates
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Template'
+                  - type: object
+                    properties:
+                      id:
+                        type: number
+      tags:
+        - email-templates
+      description: create new template
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Template'
+  /server:
+    get:
+      summary: SMTP Server Endpoint
+      tags:
+        - smtp-server
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/MailServer'
+                  - type: object
+                    properties:
+                      id:
+                        type: number
+      operationId: get-server
+      description: get all server
+    post:
+      summary: Create new SMTP Server
+      operationId: post-server
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Template'
+                  - type: object
+                    properties:
+                      id:
+                        type: number
+      tags:
+        - smtp-server
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MailServer'
+      description: ''
+  '/templates/{id}':
+    parameters:
+      - $ref: '#/components/parameters/Template-ID'
+    get:
+      summary: Your GET endpoint
+      tags:
+        - email-templates
+      responses: {}
+      operationId: get-templates-id
+    patch:
+      summary: ''
+      operationId: patch-templates-id
+      responses:
+        '200':
+          description: OK
+      tags:
+        - email-templates
+    delete:
+      summary: ''
+      operationId: delete-templates-id
+      responses:
+        '200':
+          $ref: '#/components/responses/Successful-Response'
+      tags:
+        - email-templates
+    put:
+      summary: ''
+      operationId: put-templates-id
+      responses:
+        '200':
+          description: OK
+      tags:
+        - email-templates
+  '/server/{id}':
+    parameters:
+      - $ref: '#/components/parameters/Server-ID'
+    patch:
+      summary: ''
+      operationId: patch-server-id
+      responses:
+        '200':
+          description: OK
+      tags:
+        - smtp-server
+    delete:
+      summary: ''
+      operationId: delete-server-id
+      responses:
+        '200':
+          $ref: '#/components/responses/Successful-Response'
+      tags:
+        - smtp-server
+    put:
+      summary: ''
+      operationId: put-server-id
+      responses:
+        '200':
+          description: OK
+      tags:
+        - smtp-server
+    get:
+      summary: ''
+      operationId: get-server-id
+      responses:
+        '200':
+          description: OK
+      tags:
+        - smtp-server
+components:
+  schemas:
+    Template:
+      title: Template
+      x-stoplight:
+        id: e2sv0tige60dj
+      type: object
+      description: HTML Email Templates for Sending
+      properties:
+        name:
+          type: string
+        enabled:
+          type: boolean
+          default: true
+        mail:
+          type: object
+          required:
+            - html
+            - text
+            - from
+            - subject
+            - language
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+            html:
+              type: string
+            text:
+              type: string
+            from:
+              type: string
+            subject:
+              type: string
+            language:
+              type: string
+      required:
+        - name
+        - mail
+    MailServer:
+      title: MailServer
+      x-stoplight:
+        id: 7i2t45is1enla
+      type: object
+      properties:
+        name:
+          type: string
+        secure:
+          type: boolean
+          default: true
+        enabled:
+          type: boolean
+          default: true
+        host:
+          type: string
+        port:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        emailFrom:
+          type: string
+      required:
+        - name
+        - host
+        - port
+        - username
+        - password
+        - emailFrom
+      description: SMTP Mail Server Model
+  responses:
+    Successful-Response:
+      description: Default response if action was successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: boolean
+            required:
+              - data
+  parameters:
+    Template-ID:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: number
+      description: Template-Database ID
+    Server-ID:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: number
+      description: Mail-Server-SMTP -- Database ID
+  securitySchemes: {}
+tags:
+  - name: email-templates
+  - name: smtp-server
