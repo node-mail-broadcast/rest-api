@@ -19,6 +19,9 @@ describe('Templates', () => {
 
   before((done) => {
     new Config<CustomConvictConfig>(u);
+    Config.getConfig().set('db.database', '/rest-api');
+    Config.getConfig().set('db.user', 'mongoadmin');
+    Config.getConfig().set('db.password', 'secret');
     mongoose
       .connect(getMongoConnectionString(), { authSource: 'admin' })
       .then(() => {
