@@ -39,7 +39,7 @@ jobs:
       - run: mkdir -p out
       # - run: npm run build --if-present
       ##- docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli generate -i /local/openapi.yml -g typescript-axios -o /local/out/ --additional-properties=npmName=@jeni/vote-backend-ts-api,npmRepository=https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/,npmVersion=0.0.1-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA},useSingleRequestParameter=true,supportsES6=true,modelPackage=true,apiPackage=true,disallowAdditionalPropertiesIfNotPresent=false
-      - run: npx @openapitools/openapi-generator-cli generate -i openapi.yaml -g typescript-axios -o out/ --additional-properties=npmName=@trickfilm400/node-mailer-ts-api,npmVersion=0.0.1-${{ github.sha }},useSingleRequestParameter=true,supportsES6=true,modelPackage=true,apiPackage=true,disallowAdditionalPropertiesIfNotPresent=false
+      - run: npx @openapitools/openapi-generator-cli generate -i openapi.yaml -g typescript-axios -o out/ --additional-properties=npmName=@node-mail-broadcast/node-mailer-ts-api,npmVersion=0.0.1-${{ github.sha }},useSingleRequestParameter=true,supportsES6=true,modelPackage=true,apiPackage=true,disallowAdditionalPropertiesIfNotPresent=false
       - run: cd out
      # - run: cd out && echo //npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }} >> ~/.npmrc
       - run: cd out && npm i
