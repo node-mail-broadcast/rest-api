@@ -152,7 +152,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Template'
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Template'
       operationId: get-templates-id
       description: Get Template (by id)
     patch:
@@ -221,7 +224,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MailServer'
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/MailServer'
       tags:
         - smtp-server
       description: Get Server
