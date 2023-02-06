@@ -48,6 +48,9 @@ paths:
                 properties:
                   data:
                     type: object
+                    required:
+                      - healthy
+                      - date
                     properties:
                       healthy:
                         type: boolean
@@ -55,6 +58,8 @@ paths:
                       date:
                         type: number
                         description: Timestamp
+                required:
+                  - data
       operationId: get-health
       x-internal: true
       description: 'Healthcheck, primarly for the dockerfile and docker container'
@@ -114,6 +119,8 @@ paths:
                     properties:
                       id:
                         type: number
+                    required:
+                      - id
       operationId: get-server
       description: get all server
     post:
@@ -156,6 +163,8 @@ paths:
                 properties:
                   data:
                     $ref: '#/components/schemas/Template'
+                required:
+                  - data
       operationId: get-templates-id
       description: Get Template (by id)
     patch:
@@ -228,6 +237,8 @@ paths:
                 properties:
                   data:
                     $ref: '#/components/schemas/MailServer'
+                required:
+                  - data
       tags:
         - smtp-server
       description: Get Server
