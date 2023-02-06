@@ -5,6 +5,9 @@ info:
   title: API
   version: '1.0'
   description: todo implement liquid js email template language
+  contact:
+    name: '@trickfilm400'
+    url: 'https://github.com/trickfilm400'
 servers:
   - url: 'http://localhost:3000'
 paths:
@@ -135,16 +138,23 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/MailServer'
-      description: ''
+      description: Create new Server
   '/templates/{id}':
     parameters:
       - $ref: '#/components/parameters/Template-ID'
     get:
-      summary: Your GET endpoint
+      summary: Get Template
       tags:
         - email-templates
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
       operationId: get-templates-id
+      description: Get Template (by id)
     patch:
       summary: ''
       operationId: patch-templates-id
@@ -153,6 +163,7 @@ paths:
           description: OK
       tags:
         - email-templates
+      description: Update Template
     delete:
       summary: ''
       operationId: delete-templates-id
@@ -161,6 +172,7 @@ paths:
           $ref: '#/components/responses/Successful-Response'
       tags:
         - email-templates
+      description: Delete Template
     put:
       summary: ''
       operationId: put-templates-id
@@ -169,6 +181,7 @@ paths:
           description: OK
       tags:
         - email-templates
+      description: Create new Template
   '/server/{id}':
     parameters:
       - $ref: '#/components/parameters/Server-ID'
@@ -180,6 +193,7 @@ paths:
           description: OK
       tags:
         - smtp-server
+      description: Update Server
     delete:
       summary: ''
       operationId: delete-server-id
@@ -188,6 +202,7 @@ paths:
           $ref: '#/components/responses/Successful-Response'
       tags:
         - smtp-server
+      description: Delete Server
     put:
       summary: ''
       operationId: put-server-id
@@ -196,14 +211,20 @@ paths:
           description: OK
       tags:
         - smtp-server
+      description: Create new Server
     get:
       summary: ''
       operationId: get-server-id
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MailServer'
       tags:
         - smtp-server
+      description: Get Server
 components:
   schemas:
     Template:
