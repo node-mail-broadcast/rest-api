@@ -50,4 +50,10 @@ export const mailServerSchema = Joi.object<IMailServer>({
     create: (schema) => schema.forbidden(),
     update: (schema) => schema.forbidden(),
   }),
+  tags: Joi.array()
+    .default([])
+    .alter({
+      create: (schema) => schema.optional(),
+      update: (schema) => schema.optional(),
+    }),
 });

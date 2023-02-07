@@ -56,8 +56,9 @@ paths:
                         type: boolean
                         default: true
                       date:
-                        type: number
+                        type: integer
                         description: Timestamp
+                        minimum: 0
                 required:
                   - data
       operationId: get-health
@@ -264,6 +265,7 @@ components:
             - from
             - subject
             - language
+            - smtpServerTags
           properties:
             variables:
               type: array
@@ -275,10 +277,15 @@ components:
               type: string
             from:
               type: string
+              format: email
             subject:
               type: string
             language:
               type: string
+            smtpServerTags:
+              type: array
+              items:
+                type: string
       required:
         - name
         - mail
@@ -287,6 +294,7 @@ components:
       x-stoplight:
         id: 7i2t45is1enla
       type: object
+      description: SMTP Mail Server Model
       properties:
         name:
           type: string
@@ -299,21 +307,35 @@ components:
         host:
           type: string
         port:
-          type: string
+          type: integer
+          minimum: 0
+          format: int32
+          maximum: 65535
         username:
           type: string
         password:
           type: string
         emailFrom:
           type: string
+          format: email
+        uuid:
+          type: string
+          format: uuid
+        tags:
+          type: array
+          items:
+            type: string
       required:
         - name
+        - secure
+        - enabled
         - host
         - port
         - username
         - password
         - emailFrom
-      description: SMTP Mail Server Model
+        - uuid
+        - tags
   responses:
     Successful-Response:
       description: Default response if action was successful

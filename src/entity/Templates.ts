@@ -14,6 +14,7 @@ export interface ITemplate extends Document {
     text: string;
     subject: string;
     language: string;
+    smtpServerTags: string[];
   };
 }
 
@@ -62,6 +63,10 @@ const TemplateSchema = new Schema({
     },
     language: {
       type: Schema.Types.String,
+      required: true,
+    },
+    smtpServerTags: {
+      type: Schema.Types.Array,
       required: true,
     },
   },

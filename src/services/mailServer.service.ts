@@ -1,5 +1,6 @@
 import { IMailServer, mailServerModel } from '../entity/mailServer';
 import { v4 } from 'uuid';
+import { ParsedQs } from 'qs';
 import {
   AbstractDefaultService,
   getUnixTimestamp,
@@ -28,12 +29,17 @@ class MailServerService extends AbstractDefaultService<IMailServer, string> {
     return mailServerModel.create(obj);
   }
 
-  async get(id: string): Promise<IMailServer | null> {
-    return mailServerModel.findOne({ uuid: id });
+  async getWithTags(
+    id: string,
+    query: string | string[] | ParsedQs | ParsedQs[]
+  ): Promise<IMailServer | null> {
+    return mailServerModel.findOne({ uuid: id, tags: query || undefined });
   }
 
-  async list(): Promise<IMailServer[]> {
-    return mailServerModel.find();
+  async listWithTags(
+    query: string | string[] | ParsedQs | ParsedQs[] | undefined
+  ): Promise<IMailServer[]> {
+    return mailServerModel.find({ tags: query || undefined });
   }
 
   async delete(id: string): Promise<number> {

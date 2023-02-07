@@ -51,5 +51,11 @@ export const templateSchema = Joi.object<ITemplate>({
       create: (schema) => schema.required(),
       update: (schema) => schema.optional(),
     }),
+    smtpServerTags: Joi.array()
+      .default([])
+      .alter({
+        create: (schema) => schema.optional(),
+        update: (schema) => schema.optional(),
+      }),
   },
 });

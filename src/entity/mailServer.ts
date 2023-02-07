@@ -14,6 +14,7 @@ export interface IMailServer extends Document {
   enabled: boolean;
   lastEdited: number;
   uuid: string;
+  tags: string[];
 }
 
 const MailSchema = new Schema({
@@ -40,6 +41,10 @@ const MailSchema = new Schema({
     type: Schema.Types.String,
     required: true,
     unique: true,
+  },
+  tags: {
+    type: Schema.Types.Array,
+    default: [],
   },
 });
 
