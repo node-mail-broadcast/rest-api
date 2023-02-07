@@ -124,6 +124,8 @@ paths:
                       - id
       operationId: get-server
       description: get all server
+      parameters:
+        - $ref: '#/components/parameters/SMTP-Tags'
     post:
       summary: Create new SMTP Server
       operationId: post-server
@@ -243,6 +245,8 @@ paths:
       tags:
         - smtp-server
       description: Get Server
+      parameters:
+        - $ref: '#/components/parameters/SMTP-Tags'
 components:
   schemas:
     Template:
@@ -363,6 +367,13 @@ components:
       schema:
         type: number
       description: Mail-Server-SMTP -- Database ID
+    SMTP-Tags:
+      name: tags
+      in: query
+      required: false
+      schema:
+        type: array
+      description: If specifiy smtp servers want to be selected
   securitySchemes: {}
 tags:
   - name: email-templates
