@@ -19,7 +19,7 @@ class MailServerController extends AbstractDefaultController<
     try {
       const x = req.params.id
         ? await this.service.getWithTags(this._getId(req), req.query.tags || [])
-        : await this.service.listWithTags(req.query.tags || []);
+        : await this.service.listWithTags(req.query.tags);
       res.json({ data: x });
     } catch (e) {
       next(e);

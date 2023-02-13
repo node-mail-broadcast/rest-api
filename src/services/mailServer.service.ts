@@ -39,7 +39,13 @@ class MailServerService extends AbstractDefaultService<IMailServer, string> {
   async listWithTags(
     query: string | string[] | ParsedQs | ParsedQs[] | undefined
   ): Promise<IMailServer[]> {
-    return mailServerModel.find({ tags: query || undefined });
+    return mailServerModel.find(
+      query
+        ? {
+            tags: { $all: query || undefined },
+          }
+        : {}
+    );
   }
 
   async delete(id: string): Promise<number> {
