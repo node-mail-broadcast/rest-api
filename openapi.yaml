@@ -197,6 +197,28 @@ paths:
       tags:
         - email-templates
       description: Create new Template
+    post:
+      summary: Send Email
+      operationId: send-email-by-templates-id
+      responses:
+        '200':
+          $ref: '#/components/responses/Successful-Response'
+      description: Send a email with this template
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sendTo:
+                  $ref: '#/components/schemas/EmailAddressesSend'
+                  description: Email to send to
+                data:
+                  type: object
+                  description: key-value pair for template placeholder data
+              required:
+                - sendTo
+        description: ''
   '/server/{id}':
     parameters:
       - $ref: '#/components/parameters/Server-ID'
@@ -261,6 +283,9 @@ components:
         enabled:
           type: boolean
           default: true
+        uuid:
+          type: string
+          format: uuid
         mail:
           type: object
           required:
@@ -280,8 +305,7 @@ components:
             text:
               type: string
             from:
-              type: string
-              format: email
+              $ref: '#/components/schemas/EmailAddress'
             subject:
               type: string
             language:
@@ -290,6 +314,8 @@ components:
               type: array
               items:
                 type: string
+            default_addresses:
+              $ref: '#/components/schemas/EmailAddressesSend'
       required:
         - name
         - mail
@@ -302,10 +328,13 @@ components:
       properties:
         name:
           type: string
-        secure:
+        uuid:
+          type: string
+          format: uuid
+        enabled:
           type: boolean
           default: true
-        enabled:
+        secure:
           type: boolean
           default: true
         host:
@@ -319,27 +348,57 @@ components:
           type: string
         password:
           type: string
-        emailFrom:
-          type: string
-          format: email
-        uuid:
-          type: string
-          format: uuid
         tags:
           type: array
           items:
             type: string
       required:
         - name
-        - secure
+        - uuid
         - enabled
+        - secure
         - host
         - port
         - username
         - password
-        - emailFrom
-        - uuid
         - tags
+    EmailAddress:
+      title: EmailAddress
+      x-stoplight:
+        id: vgvz0p2hdmjll
+      type: object
+      properties:
+        name:
+          type: string
+          description: Displayed Name to Email
+        address:
+          type: string
+          format: email
+          description: Email Address
+      required:
+        - name
+        - address
+      description: A Address for a sender or receiver of a mail
+      x-internal: true
+    EmailAddressesSend:
+      title: EmailAddressesSend
+      x-stoplight:
+        id: lfpa7nupexf5s
+      type: object
+      properties:
+        to:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailAddress'
+        cc:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailAddress'
+        bcc:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailAddress'
+      x-internal: true
   responses:
     Successful-Response:
       description: Default response if action was successful
@@ -359,14 +418,14 @@ components:
       required: true
       schema:
         type: number
-      description: Template-Database ID
+      description: Template- UUID
     Server-ID:
       name: id
       in: path
       required: true
       schema:
         type: number
-      description: Mail-Server-SMTP -- Database ID
+      description: Mail-Server-SMTP -- UUID
     SMTP-Tags:
       name: tags
       in: query
