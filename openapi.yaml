@@ -64,6 +64,33 @@ paths:
       operationId: get-health
       x-internal: true
       description: 'Healthcheck, primarly for the dockerfile and docker container'
+  /sendMail:
+    parameters: []
+    post:
+      summary: Send Mail
+      operationId: send-email-by-templates-id
+      responses:
+        '200':
+          $ref: '#/components/responses/Successful-Response'
+      description: send a mail by template uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sendTo:
+                  $ref: '#/components/schemas/EmailAddressesSend'
+                  description: recipents addresses
+                data:
+                  type: object
+                  description: PlacerHolder Variables key-value pair
+                templateUUID:
+                  type: string
+                  format: uuid
+              required:
+                - sendTo
+                - templateUUID
   /templates:
     get:
       summary: HTML Email Templates endpoint
@@ -197,28 +224,6 @@ paths:
       tags:
         - email-templates
       description: Create new Template
-    post:
-      summary: Send Email
-      operationId: send-email-by-templates-id
-      responses:
-        '200':
-          $ref: '#/components/responses/Successful-Response'
-      description: Send a email with this template
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                sendTo:
-                  $ref: '#/components/schemas/EmailAddressesSend'
-                  description: Email to send to
-                data:
-                  type: object
-                  description: key-value pair for template placeholder data
-              required:
-                - sendTo
-        description: ''
   '/server/{id}':
     parameters:
       - $ref: '#/components/parameters/Server-ID'

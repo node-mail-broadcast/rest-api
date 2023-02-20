@@ -10,6 +10,7 @@ class IndexRoute extends AbstractRoute {
     this.router.get(`/`, this.indexController.index);
     this.router.get(`/version`, this.indexController.version);
     this.router.get(`/health`, this.indexController.healthCheck);
+    this.router.post(`/sendMail`, this.indexController.sendMail);
   }
 
   //public readonly path: string = "12";

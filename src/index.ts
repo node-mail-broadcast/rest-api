@@ -5,10 +5,11 @@ import {
   getMongoConnectionString,
   IDbConfig,
   logger,
+  rabbitMqConfig,
 } from '@kopf02/express-utils';
 //Convict config
 export type CustomConvictConfig = IDbConfig;
-new Config(dbConfig('mongodb', 'rest-api'));
+new Config({ ...rabbitMqConfig, ...dbConfig('mongodb', 'rest-api') });
 
 import MaintenanceMiddleware from './middlewares/maintenance.middleware';
 import indexRoute from './routes/index.route';
