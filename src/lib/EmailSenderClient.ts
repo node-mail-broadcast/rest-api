@@ -28,9 +28,9 @@ export class EmailSenderClient {
         'rabbitmq.host'
       )}:${Config.getConfig().get('rabbitmq.port')}`,
     ]);
-    logger.info('Created Connection');
+    logger.info('[AMQP] Created Connection');
     const channel = await this.createChannelAndAssertQueue();
-    logger.info('crated Channel and asserted Queue');
+    logger.info('[AMQP] Created Channel and asserted Queue');
     this.channel = channel;
   }
 

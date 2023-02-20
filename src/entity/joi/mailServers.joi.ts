@@ -34,10 +34,6 @@ export const mailServerSchema = Joi.object<IMailServer>({
     create: (schema) => schema.required(),
     update: (schema) => schema.optional(),
   }),
-  emailFrom: Joi.string().alter({
-    create: (schema) => schema.required(),
-    update: (schema) => schema.optional(),
-  }),
   username: Joi.string().alter({
     create: (schema) => schema.required(),
     update: (schema) => schema.optional(),

@@ -6,7 +6,6 @@ export interface IMailServer extends Document {
   readonly _id?: string;
   host: string;
   port: number;
-  emailFrom: string;
   username: string;
   password: string;
   name: string;
@@ -25,7 +24,6 @@ const MailSchema = new Schema({
   host: Schema.Types.String,
   port: Schema.Types.Number,
   username: Schema.Types.String,
-  emailFrom: Schema.Types.String,
   password: Schema.Types.String,
   name: Schema.Types.String,
   secure: {

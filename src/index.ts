@@ -25,7 +25,7 @@ new Config({
     queue: {
       doc: 'The Queue rabbitmq should connect to',
       format: String,
-      default: 'queue',
+      default: 'emails',
       env: 'RABBIT_QUEUE',
     },
   },

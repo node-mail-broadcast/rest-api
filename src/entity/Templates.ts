@@ -1,6 +1,11 @@
 import { Schema } from 'mongoose';
 import * as mongoose from 'mongoose';
 
+export interface EmailAddress {
+  name: string;
+  address: string;
+}
+
 export interface ITemplate extends Document {
   //mongoose string
   readonly _id?: string;
@@ -15,6 +20,12 @@ export interface ITemplate extends Document {
     subject: string;
     language: string;
     smtpServerTags: string[];
+    from: EmailAddress;
+    default_addresses: {
+      to: EmailAddress[];
+      cc: EmailAddress[];
+      bcc: EmailAddress[];
+    };
   };
 }
 
@@ -54,8 +65,14 @@ const TemplateSchema = new Schema({
       required: true,
     },
     from: {
-      type: Schema.Types.String,
-      required: true,
+      name: {
+        type: Schema.Types.String,
+        required: true,
+      },
+      address: {
+        type: Schema.Types.String,
+        required: true,
+      },
     },
     subject: {
       type: Schema.Types.String,
@@ -68,6 +85,17 @@ const TemplateSchema = new Schema({
     smtpServerTags: {
       type: Schema.Types.Array,
       required: true,
+    },
+    default_addresses: {
+      to: {
+        type: Schema.Types.Array,
+      },
+      cc: {
+        type: Schema.Types.Array,
+      },
+      bcc: {
+        type: Schema.Types.Array,
+      },
     },
   },
 });

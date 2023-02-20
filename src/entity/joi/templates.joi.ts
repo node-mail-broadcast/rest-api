@@ -39,7 +39,7 @@ export const templateSchema = Joi.object<ITemplate>({
       create: (schema) => schema.required(),
       update: (schema) => schema.optional(),
     }),
-    from: Joi.string().alter({
+    from: Joi.object().alter({
       create: (schema) => schema.required(),
       update: (schema) => schema.optional(),
     }),
@@ -57,5 +57,9 @@ export const templateSchema = Joi.object<ITemplate>({
         create: (schema) => schema.optional(),
         update: (schema) => schema.optional(),
       }),
+    default_addresses: Joi.object().alter({
+      create: (schema) => schema.required(),
+      update: (schema) => schema.optional(),
+    }),
   },
 });
