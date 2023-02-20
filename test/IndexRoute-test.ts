@@ -9,7 +9,28 @@ describe('IndexRoute', () => {
 
   before(() => {
     process.env.NODE_ENV = 'test';
-    new Config();
+    new Config({
+      rabbitmq: {
+        host: {
+          doc: 'The HOST or IP address rabbitmq should connect to',
+          format: String,
+          default: '127.0.0.1',
+          env: 'RABBIT_HOST',
+        },
+        port: {
+          doc: 'The Port rabbitmq should connect to',
+          format: 'port',
+          default: '5672',
+          env: 'RABBIT_PORT',
+        },
+        queue: {
+          doc: 'The Queue rabbitmq should connect to',
+          format: String,
+          default: 'queue',
+          env: 'RABBIT_QUEUE',
+        },
+      },
+    });
     Config.getConfig<CustomConvictConfig>().set('env', 'test');
     //register plugin
     chai.use(chaiHttp);
