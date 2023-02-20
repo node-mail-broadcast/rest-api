@@ -5,11 +5,32 @@ import {
   getMongoConnectionString,
   IDbConfig,
   logger,
-  rabbitMqConfig,
 } from '@kopf02/express-utils';
 //Convict config
 export type CustomConvictConfig = IDbConfig;
-new Config({ ...rabbitMqConfig, ...dbConfig('mongodb', 'rest-api') });
+new Config({
+  rabbitmq: {
+    host: {
+      doc: 'The HOST or IP address rabbitmq should connect to',
+      format: String,
+      default: '127.0.0.1',
+      env: 'RABBIT_HOST',
+    },
+    port: {
+      doc: 'The Port rabbitmq should connect to',
+      format: 'port',
+      default: '5672',
+      env: 'RABBIT_PORT',
+    },
+    queue: {
+      doc: 'The Queue rabbitmq should connect to',
+      format: String,
+      default: 'queue',
+      env: 'RABBIT_QUEUE',
+    },
+  },
+  ...dbConfig('mongodb', 'rest-api'),
+});
 
 import MaintenanceMiddleware from './middlewares/maintenance.middleware';
 import indexRoute from './routes/index.route';

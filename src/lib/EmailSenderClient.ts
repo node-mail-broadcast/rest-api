@@ -24,9 +24,9 @@ export class EmailSenderClient {
    */
   async connect() {
     this.connection = amqp.connect([
-      `amqp://${Config.getConfig().get('rabbitmq.ip')}:${Config.getConfig().get(
-        'rabbitmq.port'
-      )}`,
+      `amqp://${Config.getConfig().get(
+        'rabbitmq.host'
+      )}:${Config.getConfig().get('rabbitmq.port')}`,
     ]);
     logger.info('Created Connection');
     const channel = await this.createChannelAndAssertQueue();
