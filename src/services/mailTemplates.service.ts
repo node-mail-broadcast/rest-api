@@ -18,8 +18,8 @@ class MailTemplatesService extends AbstractDefaultService<ITemplate, string> {
     return templates.find() || [];
   }
 
-  public async create(obj: ITemplate) {
-    obj.uuid = v4();
+  public async create(obj: ITemplate, id?: string) {
+    obj.uuid = id || v4(); //if id is from put request, use it
     obj.lastEdited = getUnixTimestamp();
     return templates.create(obj);
   }

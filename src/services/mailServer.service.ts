@@ -19,12 +19,8 @@ class MailServerService extends AbstractDefaultService<IMailServer, string> {
     );
   }
 
-  async create(
-    obj: IMailServer,
-    _id: string | undefined
-  ): Promise<IMailServer> {
-    if (_id) obj.uuid = _id;
-    else obj.uuid = v4();
+  async create(obj: IMailServer, id?: string): Promise<IMailServer> {
+    obj.uuid = id || v4(); //if id is from put request, use it
     obj.lastEdited = getUnixTimestamp(); //todo https://masteringjs.io/tutorials/mongoose/timestamps
     return mailServerModel.create(obj);
   }
