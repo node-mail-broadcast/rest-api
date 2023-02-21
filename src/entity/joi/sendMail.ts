@@ -1,10 +1,10 @@
 import * as Joi from 'joi';
 
 export const sendMailSchema = Joi.object({
-  address: Joi.object().alter({
+  sendTo: Joi.object().alter({
     create: (schema) => schema.required(),
   }),
-  template: Joi.string().alter({
+  templateUUID: Joi.string().alter({
     create: (schema) => schema.required(),
   }),
   data: Joi.object().alter({

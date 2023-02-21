@@ -291,6 +291,8 @@ components:
         uuid:
           type: string
           format: uuid
+        lastEdited:
+          type: number
         mail:
           type: object
           required:
@@ -357,6 +359,8 @@ components:
           type: array
           items:
             type: string
+        lastEdited:
+          type: number
       required:
         - name
         - uuid
