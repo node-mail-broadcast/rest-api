@@ -56,15 +56,14 @@ if (process.env.NODE_ENV !== 'test') {
       app.afterMiddlewares(new MaintenanceMiddleware(false).ExpressMiddleWare);
       app.init();
       app.getServer().set('etag', false);
-      app.listen();
+      app.listen(Config.getConfig().get('port'));
       dataSource = res;
-      //console.log('app.listen();');
     });
   //});
 } else {
   //app.afterMiddlewares(new MaintenanceMiddleware().ExpressMiddleWare);
   app.init();
-  app.listen();
+  app.listen(Config.getConfig().get('port'));
 }
 
 export { dataSource };
