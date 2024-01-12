@@ -1,4 +1,4 @@
-FROM node:16-alpine3.16 AS builder
+FROM node:20-alpine3.19 AS builder
 
 WORKDIR /build
 
@@ -9,12 +9,12 @@ COPY . .
 
 # build and install only production dependencies
 RUN npm run build
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 
 
 ######################################################################
 
-FROM node:16-alpine3.16
+FROM node:20-alpine3.19
 
 WORKDIR /app
 

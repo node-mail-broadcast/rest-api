@@ -19,11 +19,11 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [20.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -73,7 +73,7 @@ jobs:
         # https://github.com/docker/build-push-action
       - name: Build and push Docker image
         id: build-and-push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: true
