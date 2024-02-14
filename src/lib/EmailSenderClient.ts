@@ -1,5 +1,5 @@
 import amqp from 'amqp-connection-manager';
-import { IAmqpConnectionManager } from 'amqp-connection-manager/dist/esm/AmqpConnectionManager';
+import { IAmqpConnectionManager } from 'amqp-connection-manager/dist/types/AmqpConnectionManager';
 import { ConfirmChannel } from 'amqplib';
 import { Config, logger } from '@kopf02/express-utils';
 
