@@ -8,7 +8,8 @@
     "test:ci": "nyc --reporter cobertura --reporter=html --reporter=text mocha -r ts-node/register --require source-map-support/register --recursive test/*.ts --reporter mocha-junit-reporter --reporter=spec",
     "dev": "ts-node-dev --project ./tsconfig.json --respawn --no-deps --rs --cls ./src",
     "build": "tsc",
-    "healthcheck": "npx docker-healthcheck"
+    "healthcheck": "npx docker-healthcheck",
+    "build:openapi": "npx @openapitools/openapi-generator-cli generate -i openapi.yaml -g typescript-axios -o out/ --additional-properties=npmName=@node-mail-broadcast/node-mailer-ts-api,npmVersion=0.0.1-npm-custom-build,useSingleRequestParameter=false,supportsES6=true,modelPackage=true,apiPackage=true,disallowAdditionalPropertiesIfNotPresent=false"
   },
   "repository": {
     "type": "git",
