@@ -387,7 +387,7 @@ components:
         - name
         - address
       description: A Address for a sender or receiver of a mail
-      x-internal: true
+      x-internal: false
     EmailAddressesSend:
       title: EmailAddressesSend
       x-stoplight:
@@ -406,7 +406,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EmailAddress'
-      x-internal: true
+      x-internal: false
   responses:
     Successful-Response:
       description: Default response if action was successful
